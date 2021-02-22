@@ -16,7 +16,9 @@ let database: firebase.firestore.Firestore
 if (!firebase.apps.length) {
   firebaseInstance = firebase.initializeApp(firebaseConfig)
   database = firebase.firestore()
-  if (ISTEST === 'test') {
+  
+  const isTestAmbient = ISTEST === 'true'
+  if (isTestAmbient) {
     database.useEmulator('localhost', 8080)
   }
 } else {
