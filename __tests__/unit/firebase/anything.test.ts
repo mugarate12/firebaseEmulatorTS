@@ -9,10 +9,9 @@ describe('Firebase', () => {
 
       //request
       const CreateAnything = await createAnything()
-      console.log(CreateAnything)
 
       //expect
-      expect(1).toBe(1)
+      expect(CreateAnything.data.sucess).toBe('informação criada com sucesso!')
     })
   })
 })
