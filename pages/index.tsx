@@ -7,7 +7,9 @@ import { createAnything } from './../firebase/anything'
 
 export default function Home() {
   async function create() {
-    await createAnything()
+    const pseudoField = 'information by client'
+
+    await createAnything(pseudoField)
       .then(response => {
         console.log(response)
       })

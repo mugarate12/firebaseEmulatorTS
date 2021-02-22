@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 
+const ISTEST = process.env.ISTEST
 let firebaseConfig = {
   apiKey: "AIzaSyA34pVcwYd_TcL7dl-QTUhMcePJl_UyR48",
   authDomain: "fir-emulator-21d59.firebaseapp.com",
@@ -15,7 +16,9 @@ let database: firebase.firestore.Firestore
 if (!firebase.apps.length) {
   firebaseInstance = firebase.initializeApp(firebaseConfig)
   database = firebase.firestore()
-  database.useEmulator('localhost', 8080)
+  if (ISTEST === 'test') {
+    database.useEmulator('localhost', 8080)
+  }
 } else {
   firebaseInstance = firebase.app()
   database = firebase.firestore()

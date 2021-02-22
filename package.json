@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "SET ISTEST=test&&jest"
+    "test": "SET ISTEST=true&&jest"
   },
   "dependencies": {
     "firebase": "^8.2.9",

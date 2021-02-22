@@ -4,14 +4,26 @@ import {
 
 describe('Firebase', () => {
   describe('Anything operations', () => {
-    test('create any object with createAnything in firestore', async () => {
-      // data
+    test('create any information with createAnything in firestore and receive on data object message to sucess operation', async () => {
+      // Arrange
+      const information = 'my information'
 
-      //request
-      const CreateAnything = await createAnything()
+      // Act
+      const CreateAnything = await createAnything(information)
 
-      //expect
+      // Assert
       expect(CreateAnything.data.sucess).toBe('informação criada com sucesso!')
+    })
+
+    test('failure to create information in Anything Entity in firestore to bad information and receive on data object message to failure operation ', async () => {
+      // Arrange
+      const badInformation = undefined
+
+      // Act
+      const CreateAnything = await createAnything(badInformation)
+
+      // Assert
+      expect(CreateAnything.data.error).toBeDefined()
     })
   })
 })
