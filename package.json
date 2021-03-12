@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "SET ISTEST=true&&jest"
+    "emulator": "firebase emulators:start",
+    "test": "run-script-os",
+    "test:win32": "SET ISTEST=true&&jest",
+    "test:darwin:linux": "export ISTEST=true&&jest"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "firebase": "^8.2.9",
     "next": "10.0.7",
     "react": "17.0.1",
@@ -24,6 +28,7 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "jest": "^26.6.3",
     "jest-enzyme": "^7.1.2",
+    "run-script-os": "^1.1.5",
     "typescript": "^4.1.5"
   }
 }

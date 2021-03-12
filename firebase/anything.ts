@@ -1,20 +1,43 @@
-import { delBasePath } from 'next/dist/next-server/lib/router/router'
-import { database } from './../config/firebase'
-import { handleResponse } from './../config/firebaseResponse'
+import firebase from 'firebase'
 
-export async function createAnything(information: string) {
-  try {
-    return await database.collection('anything').doc()
+import { database } from './../config/firebase'
+import { handleResponse, FirebaseFunctionError } from './../config/firebaseResponse'
+import { ANYTHING } from './collections'
+
+export default class Anything{
+  public create = async (information: string) => {
+    return await database.collection(ANYTHING)
+      .doc()
       .set({
-        any: information
+        information
       })
-        .then(response => {
-          return handleResponse('sucess', 'informação criada com sucesso!')
+      .then(response => {
+        return handleResponse({
+          message: 'informação criada com sucesso!'
         })
-        .catch(error => {
-          return handleResponse('error', error.code, error.message)
+      })
+      .catch(error => {
+        throw new FirebaseFunctionError(error.code, error.message)
+      })
+  }
+
+  public index = async () => {
+    return await database.collection(ANYTHING)
+      .get()
+      .then(querySnapshot => {
+        let anythingCollectionArray: Array<firebase.firestore.DocumentData> = []
+
+        querySnapshot.forEach((doc) => {
+          anythingCollectionArray.push(doc.data())
         })
-  } catch (error) {
-    return handleResponse('error', error.code, error.message)
+
+        return handleResponse({
+          message: 'aqui estão todos os documentos da coleção',
+          data: anythingCollectionArray
+        })
+      })
+      .catch(error => {
+        throw new FirebaseFunctionError(error.code, error.message)
+      })
   }
 }
